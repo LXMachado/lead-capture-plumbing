@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { serviceOptions, urgencyOptions } from '../data/siteContent';
 
@@ -13,6 +12,8 @@ const initialForm = {
   message: ''
 };
 
+const DEMO_MODE = true;
+
 export default function LeadForm({
   title = 'Get a Quick Quote',
   subtitle = "We'll respond as soon as possible with the next step.",
@@ -20,6 +21,7 @@ export default function LeadForm({
 }) {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const update = (field) => (event) =>
     setForm((prev) => ({ ...prev, [field]: event.target.value }));
@@ -32,18 +34,34 @@ export default function LeadForm({
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
-      const baseUrl = import.meta.env.VITE_API_URL || '/api';
-      await axios.post(`${baseUrl}/leads`, form, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      setStatus({ type: 'success', message: 'Request received. We will contact you shortly.' });
+      if (DEMO_MODE) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        setStatus({ 
+          type: 'success', 
+          message: 'Request received! We will contact you shortly. (Demo mode)' 
+        });
+      } else {
+        const baseUrl = import.meta.env.VITE_API_URL || '/api';
+        await fetch(`${baseUrl}/leads`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form)
+        });
+        setStatus({ type: 'success', message: 'Request received. We will contact you shortly.' });
+      }
       setForm(initialForm);
     } catch (error) {
       setStatus({
         type: 'error',
-        message: error?.response?.data?.message || 'Submission failed. Please call if the issue is urgent.'
+        message: DEMO_MODE 
+          ? 'Demo mode active - submission simulated.' 
+          : 'Submission failed. Please call if the issue is urgent.'
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -121,8 +139,8 @@ export default function LeadForm({
         </div>
       ) : null}
 
-      <button type="submit" className="btn btn-form-submit">
-        Send Priority Request
+      <button type="submit" disabled={isSubmitting} className="btn btn-form-submit">
+        {isSubmitting ? 'Sending...' : 'Send Priority Request'}
       </button>
     </form>
   );
