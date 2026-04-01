@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom';
 import { business } from '../data/siteContent';
+import { siteImages } from '../data/siteImages';
 
 export default function Hero() {
   return (
     <section className="hero-shell">
+      <div
+        className="hero-media"
+        style={{
+          backgroundImage: `
+            linear-gradient(90deg, rgba(0, 63, 135, 0.9) 0%, rgba(0, 63, 135, 0.66) 48%, rgba(0, 63, 135, 0.2) 100%),
+            url(${siteImages.homeHero})
+          `
+        }}
+      />
       <div className="hero-overlay" />
       <div className="hero-grid site-shell">
         <div className="max-w-2xl space-y-7">

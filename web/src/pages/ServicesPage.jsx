@@ -3,11 +3,21 @@ import LeadForm from '../components/LeadForm';
 import ServiceCards from '../components/ServiceCards';
 import Testimonials from '../components/Testimonials';
 import { business } from '../data/siteContent';
+import { siteImages } from '../data/siteImages';
 
 export default function ServicesPage() {
   return (
     <div>
       <section className="service-hero">
+        <div
+          className="service-hero-media"
+          style={{
+            backgroundImage: `
+              linear-gradient(90deg, rgba(0, 63, 135, 0.9) 0%, rgba(0, 63, 135, 0.62) 52%, rgba(8, 39, 71, 0.24) 100%),
+              url(${siteImages.servicesHero})
+            `
+          }}
+        />
         <div className="service-hero-overlay" />
         <div className="site-shell service-hero-grid">
           <div className="max-w-2xl space-y-6 text-white">

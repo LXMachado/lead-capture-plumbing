@@ -4,6 +4,7 @@ import LeadForm from '../components/LeadForm';
 import ServiceCards from '../components/ServiceCards';
 import Testimonials from '../components/Testimonials';
 import { business, coverageAreas, trustPoints } from '../data/siteContent';
+import { siteImages } from '../data/siteImages';
 
 export default function HomePage() {
   return (
@@ -27,7 +28,15 @@ export default function HomePage() {
         <div className="site-shell grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="showcase-photo">
             <div className="showcase-photo-card">
-              <div className="showcase-photo-image" />
+              <div
+                className="showcase-photo-image"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(0, 63, 135, 0.12), rgba(0, 63, 135, 0.18)),
+                    url(${siteImages.homeShowcase})
+                  `
+                }}
+              />
             </div>
             <div className="showcase-photo-accent" />
           </div>
