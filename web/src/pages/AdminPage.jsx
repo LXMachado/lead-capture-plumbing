@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
 import { adminStatuses, serviceOptions } from '../data/siteContent';
 
 const statusTone = {
@@ -13,6 +12,15 @@ const urgencyTone = {
   medium: 'pill-medium',
   emergency: 'pill-critical'
 };
+
+const DEMO_MODE = true;
+
+// Demo leads for display when no API is connected
+const demoLeads = [
+  { id: 1, name: 'Sarah Mitchell', phone: '0400 123 456', email: 'sarah@example.com', suburb: 'Robina', service_type: 'Hot Water Repair', urgency: 'emergency', status: 'new', message: 'No hot water - urgent!', created_at: new Date().toISOString() },
+  { id: 2, name: 'James Wilson', phone: '0412 987 654', email: 'james@example.com', suburb: 'Broadbeach', service_type: 'Leak Detection', urgency: 'medium', status: 'contacted', message: 'Slow leak under kitchen sink', created_at: new Date(Date.now() - 86400000).toISOString() },
+  { id: 3, name: 'Emily Chen', phone: '0405 555 888', email: 'emily@example.com', suburb: 'Surfers Paradise', service_type: 'Blocked Drain', urgency: 'low', status: 'booked', message: 'Slow draining shower', created_at: new Date(Date.now() - 172800000).toISOString() },
+];
 
 export default function AdminPage() {
   const [authToken, setAuthToken] = useState(localStorage.getItem('adminToken') || '');
@@ -28,15 +36,29 @@ export default function AdminPage() {
     if (!isLoggedIn) return;
 
     try {
-      const qs = new URLSearchParams(query).toString();
-      const baseUrl = import.meta.env.VITE_API_URL || '/api';
-      const response = await axios.get(`${baseUrl}/leads?${qs}`, {
-        headers: { Authorization: `Bearer ${authToken}` }
-      });
-      setLeads(response.data);
-      setError('');
+      if (DEMO_MODE) {
+        // Filter demo leads based on query
+        let filtered = [...demoLeads];
+        if (query.service_type) {
+          filtered = filtered.filter(l => l.service_type === query.service_type);
+        }
+        if (query.status) {
+          filtered = filtered.filter(l => l.status === query.status);
+        }
+        setLeads(filtered);
+        setError('');
+      } else {
+        const qs = new URLSearchParams(query).toString();
+        const baseUrl = import.meta.env.VITE_API_URL || '/api';
+        const response = await fetch(`${baseUrl}/leads?${qs}`, {
+          headers: { Authorization: `Bearer ${authToken}` }
+        });
+        const data = await response.json();
+        setLeads(data);
+        setError('');
+      }
     } catch (err) {
-      setError(err?.response?.data?.message || 'Failed loading leads');
+      setError('Failed loading leads');
       setLeads([]);
     }
   }
@@ -52,7 +74,7 @@ export default function AdminPage() {
     const value = event.target.token.value.trim();
 
     if (!value) {
-      setError('API token is required');
+      setError('Admin token is required');
       return;
     }
 
@@ -62,19 +84,31 @@ export default function AdminPage() {
   }
 
   async function updateStatus(id, nextStatus) {
-    try {
-      const baseUrl = import.meta.env.VITE_API_URL || '/api';
-      const response = await axios.patch(
-        `${baseUrl}/leads/${id}/status`,
-        { status: nextStatus },
-        { headers: { Authorization: `Bearer ${authToken}` } }
-      );
-
+    if (DEMO_MODE) {
       setLeads((current) =>
-        current.map((lead) => (lead.id === id ? response.data : lead))
+        current.map((lead) => (lead.id === id ? { ...lead, status: nextStatus } : lead))
       );
-    } catch {
-      setError('Status update failed');
+    } else {
+      try {
+        const baseUrl = import.meta.env.VITE_API_URL || '/api';
+        const response = await fetch(
+          `${baseUrl}/leads/${id}/status`,
+          {
+            method: 'PATCH',
+            headers: { 
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ status: nextStatus })
+          }
+        );
+        const updated = await response.json();
+        setLeads((current) =>
+          current.map((lead) => (lead.id === id ? updated : lead))
+        );
+      } catch {
+        setError('Status update failed');
+      }
     }
   }
 
@@ -88,12 +122,12 @@ export default function AdminPage() {
               Unlock lead management
             </h1>
             <p className="mt-4 text-base leading-8 text-secondary">
-              This keeps the dashboard simple and deployable without introducing a full authentication system.
+              Demo mode active - enter any token to view sample leads.
             </p>
             <form onSubmit={login} className="mt-8 space-y-4">
               <label className="field">
                 <span>Admin Token</span>
-                <input name="token" className="input" placeholder="Token from environment config" />
+                <input name="token" className="input" placeholder="Enter any token for demo" />
               </label>
               {error ? <p className="form-status form-status-error">{error}</p> : null}
               <button type="submit" className="btn btn-form-submit">
@@ -140,7 +174,7 @@ export default function AdminPage() {
                 Lead Management
               </h2>
               <p className="mt-2 text-base leading-8 text-secondary">
-                Reviewing incoming service requests for Gold Coast and Brisbane.
+                Demo mode - viewing sample leads for Gold Coast and Brisbane.
               </p>
             </div>
 
@@ -295,7 +329,7 @@ export default function AdminPage() {
                 Active Service Coverage
               </h3>
               <p className="mt-4 text-base leading-8 text-secondary">
-                Current lead routing is optimised for Gold Coast, Brisbane Metro, and nearby growth suburbs. The dashboard stays intentionally simple, but still supports real follow-up workflow.
+                Demo mode - sample data shown for illustration purposes.
               </p>
               <ul className="mt-6 space-y-3 text-sm text-secondary">
                 <li>Gold Coast: highest activity</li>
