@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Architectural Plumber Admin Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "surface": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#bbd0ff",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#ffc395",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "inverse-primary": "#acc7ff",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary-fixed": "#d7e2ff",
+                        "on-primary-fixed-variant": "#004491",
+                        "tertiary": "#663400",
+                        "primary-container": "#0056b3",
+                        "on-tertiary-fixed": "#2f1500",
+                        "secondary": "#5f5e5e",
+                        "secondary-container": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "outline-variant": "#c2c6d4",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdcc3",
+                        "surface-container": "#edeeef",
+                        "tertiary-container": "#884800",
+                        "on-secondary-container": "#656464",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container-low": "#f3f4f5",
+                        "outline": "#727784",
+                        "on-surface-variant": "#424752",
+                        "on-primary-fixed": "#001a40",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "primary-fixed-dim": "#acc7ff",
+                        "surface-tint": "#115cb9",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9fa",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-dim": "#d9dadb",
+                        "on-background": "#191c1d",
+                        "primary": "#003f87"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full h-screen w-64 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-inter text-sm">
+<div class="px-6 py-8">
+<h1 class="font-manrope font-bold text-blue-900 dark:text-blue-50 text-xl tracking-tight">Admin Portal</h1>
+<p class="text-xs text-slate-500 mt-1">Lead Management</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:pl-2 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Leads (Active Match) -->
+<a class="flex items-center gap-3 px-3 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 font-semibold border-r-4 border-blue-800 hover:pl-2 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="person_search" style="font-variation-settings: 'FILL' 1;">person_search</span>
+<span>Leads</span>
+</a>
+<!-- Schedule -->
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:pl-2 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>Schedule</span>
+</a>
+<!-- Service Areas -->
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:pl-2 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span>Service Areas</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:pl-2 transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-6 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Entry
+            </button>
+<div class="mt-6 flex items-center gap-3">
+<div class="h-10 w-10 rounded-full overflow-hidden">
+<img alt="Admin Profile" data-alt="professional headshot of a mature businessman in a sharp navy suit against a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChfVhoDgEMefFQxN99Qbpi83iiNyKAGvYARs2qPj9Qt04SVVk2esQNoS8MS5AxF5uJDeGJvx6Sgq4YuThGmuU6sbrOw7PALleHu9Pu8gs5ukRVA7ytbnWTqKkMitJilDE8sD2zxJDTeGpo6GpfXInaXZO-zcAXNCCT18l25_56zZssat673bOyOVhbXlB_6uFkzs1YFlZmrZF9TlL4-79yDtOABnLlX2bdXuL1elGwDID5y8OEpRqhcOQfSNtTX8wTium8cuodAA3B"/>
+</div>
+<div>
+<p class="text-sm font-bold text-blue-900">John Doe</p>
+<p class="text-[10px] text-slate-500">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 min-h-screen bg-surface p-8 lg:p-12">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface font-headline">Lead Management</h2>
+<p class="text-on-surface-variant body-lg mt-1">Reviewing incoming service requests for Gold Coast &amp; Brisbane.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="bg-surface-container-highest border-none rounded-xl pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-primary w-64 text-sm" placeholder="Search leads..." type="text"/>
+</div>
+<button class="bg-surface-container-low text-on-surface p-2.5 rounded-xl hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</header>
+<!-- Top Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Total Leads Today -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-l-4 border-primary group">
+<div class="flex items-center justify-between mb-4">
+<span class="p-2 bg-primary-fixed text-primary rounded-lg">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</span>
+<span class="text-green-600 text-xs font-bold bg-green-50 px-2 py-1 rounded-full">+12%</span>
+</div>
+<h3 class="text-on-surface-variant text-sm font-medium">Total Leads Today</h3>
+<p class="text-3xl font-black text-on-surface mt-1">42</p>
+</div>
+<!-- Active Emergency Calls -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-l-4 border-error">
+<div class="flex items-center justify-between mb-4">
+<span class="p-2 bg-error-container text-error rounded-lg">
+<span class="material-symbols-outlined" data-icon="emergency_home">emergency_home</span>
+</span>
+<span class="animate-pulse flex h-2 w-2 rounded-full bg-error"></span>
+</div>
+<h3 class="text-on-surface-variant text-sm font-medium">Active Emergency Calls</h3>
+<p class="text-3xl font-black text-on-surface mt-1">05</p>
+</div>
+<!-- Scheduled Jobs -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-l-4 border-tertiary">
+<div class="flex items-center justify-between mb-4">
+<span class="p-2 bg-tertiary-fixed text-tertiary rounded-lg">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</span>
+</div>
+<h3 class="text-on-surface-variant text-sm font-medium">Scheduled Jobs</h3>
+<p class="text-3xl font-black text-on-surface mt-1">18</p>
+</div>
+</section>
+<!-- Main Data Table Container -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="p-6 flex items-center justify-between bg-surface-container-low/50 border-b border-outline-variant/10">
+<h3 class="font-bold text-lg">Incoming Leads</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-xs font-bold text-on-surface bg-surface-container-lowest rounded-lg shadow-sm">All Leads</button>
+<button class="px-4 py-2 text-xs font-bold text-on-surface-variant hover:bg-surface-container-high rounded-lg">Urgent Only</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-on-surface-variant text-xs uppercase tracking-wider font-bold">
+<th class="px-6 py-4">Lead Name</th>
+<th class="px-6 py-4">Service Type</th>
+<th class="px-6 py-4 text-center">Urgency</th>
+<th class="px-6 py-4 text-center">Status</th>
+<th class="px-6 py-4">Date/Time</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1: Emergency -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center font-bold text-primary">SC</div>
+<div>
+<p class="font-bold text-on-surface">Sarah Connor</p>
+<p class="text-xs text-on-surface-variant">Surfers Paradise, QLD</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Emergency</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-error-container text-error text-[10px] font-black uppercase rounded-full">Critical</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-primary-fixed text-primary text-[10px] font-black uppercase rounded-full">New</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Today</p>
+<p class="text-[10px] text-on-surface-variant">09:14 AM</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Hot Water -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center font-bold text-primary">MW</div>
+<div>
+<p class="font-bold text-on-surface">Mark Williams</p>
+<p class="text-xs text-on-surface-variant">Fortitude Valley, BNE</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Hot Water</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-tertiary-fixed text-tertiary text-[10px] font-black uppercase rounded-full">Normal</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-black uppercase rounded-full">Contacted</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Today</p>
+<p class="text-[10px] text-on-surface-variant">08:30 AM</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Blocked Drain -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center font-bold text-primary">EJ</div>
+<div>
+<p class="font-bold text-on-surface">Emma Johnson</p>
+<p class="text-xs text-on-surface-variant">Broadbeach, QLD</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Blocked Drains</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-tertiary-fixed text-tertiary text-[10px] font-black uppercase rounded-full">Normal</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase rounded-full">Scheduled</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Oct 24, 2024</p>
+<p class="text-[10px] text-on-surface-variant">04:45 PM</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Maintenance -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center font-bold text-primary">DL</div>
+<div>
+<p class="font-bold text-on-surface">David Lee</p>
+<p class="text-xs text-on-surface-variant">West End, BNE</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-on-surface">Maintenance</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase rounded-full">Low</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-green-100 text-green-800 text-[10px] font-black uppercase rounded-full">Completed</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Oct 23, 2024</p>
+<p class="text-[10px] text-on-surface-variant">11:20 AM</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-6 bg-surface-container-low/30 border-t border-outline-variant/10 flex items-center justify-between">
+<p class="text-xs text-on-surface-variant">Showing 1-4 of 42 leads</p>
+<div class="flex gap-1">
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span></button>
+<button class="px-3 py-1 bg-primary text-on-primary text-xs font-bold rounded">1</button>
+<button class="px-3 py-1 hover:bg-surface-container-high text-xs font-bold rounded">2</button>
+<button class="px-3 py-1 hover:bg-surface-container-high text-xs font-bold rounded">3</button>
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</section>
+<!-- Service Area Mini Map (Asymmetric Highlight) -->
+<section class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="order-2 lg:order-1">
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5">
+<span class="material-symbols-outlined text-9xl" data-icon="map">map</span>
+</div>
+<h3 class="text-2xl font-black text-primary font-headline mb-4">Active Service Coverage</h3>
+<p class="body-lg text-on-surface-variant mb-6">Our fleet is currently optimized for Gold Coast Central and Brisbane South. Lead response times are under 15 minutes in these zones.</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm font-semibold">
+<span class="h-2 w-2 rounded-full bg-green-500"></span>
+                            Gold Coast (High Activity)
+                        </li>
+<li class="flex items-center gap-3 text-sm font-semibold">
+<span class="h-2 w-2 rounded-full bg-green-500"></span>
+                            Brisbane Metro (Normal)
+                        </li>
+<li class="flex items-center gap-3 text-sm font-semibold text-on-surface-variant">
+<span class="h-2 w-2 rounded-full bg-orange-400"></span>
+                            Ipswich (Limited Availability)
+                        </li>
+</ul>
+</div>
+</div>
+<div class="order-1 lg:order-2 h-64 lg:h-80 rounded-2xl overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-700" data-alt="abstract city map with neon blue highlights on dark background representing digital service area coverage" data-location="Gold Coast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD99YGsJONtKj5yIJeJh3IwP2c_S7JpwIxlva0LJotdPWCqdW7HEinQ0KXarsLTEuoN8lveQxLlxoLzpnsmDMmCQtrIitykYby7G9TSEB868Jp1wFkdTZYY3TLS-N_hNCt_Gh7otarcItPaeBd29yHwUFFIRnfQyF5LnTxXpQPiYftyP_0fghfIi3kmz9T7h4VEcnbPgVMZ-4ZHdgT2JpDX50NvF76--44hnCaZcE4l7kDej2kUQFiBoYoPmUseXZlc1N6GkrbkgVWa"/>
+</div>
+</section>
+</main>
+<!-- Footer (Authority Source: JSON) -->
+<footer class="lg:ml-64 bg-slate-900 dark:bg-black w-full pt-16 pb-8 font-inter text-sm leading-relaxed">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+<div>
+<span class="font-manrope text-lg font-bold text-white">Architectural Plumber</span>
+<p class="text-slate-400 mt-4 max-w-xs">Excellence in high-end plumbing infrastructure. Managing precision flow across SE Queensland.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<a class="text-slate-400 hover:text-white hover:translate-x-1 transition-transform" href="#">Emergency Services</a>
+<a class="text-slate-400 hover:text-white hover:translate-x-1 transition-transform" href="#">Hot Water Systems</a>
+<a class="text-slate-400 hover:text-white hover:translate-x-1 transition-transform" href="#">Blocked Drains</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-slate-400 hover:text-white hover:translate-x-1 transition-transform" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-white hover:translate-x-1 transition-transform" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="flex flex-col items-start md:items-end">
+<p class="text-orange-500 font-bold text-lg mb-2">Support 24/7</p>
+<p class="text-white font-black text-2xl tracking-tighter">1800-PLUMB-PRO</p>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-slate-800 text-slate-500 text-[10px]">
+            © 2024 The Architectural Plumber. Gold Coast &amp; Brisbane. License #12345678.
+        </div>
+</footer>
+</body></html>
