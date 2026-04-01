@@ -181,7 +181,7 @@
   .hero-media {
     position: absolute;
     inset: 0;
-    background-position: center;
+    background-position: 72% center;
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.98;
@@ -292,7 +292,7 @@
       linear-gradient(rgba(0, 63, 135, 0.08), rgba(0, 63, 135, 0.12)),
       radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.55), transparent 28%),
       linear-gradient(135deg, #d7e2ff, #f3f4f5 55%, #cfd7de);
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -376,10 +376,21 @@
   .service-hero-media {
     position: absolute;
     inset: 0;
-    background-position: center;
+    background-position: 66% center;
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.96;
+  }
+
+  @media (max-width: 767px) {
+    .hero-media,
+    .service-hero-media {
+      background-position: 62% center;
+    }
+
+    .showcase-photo-image {
+      background-position: 54% center;
+    }
   }
 
   .service-hero::before {

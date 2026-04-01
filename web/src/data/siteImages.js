@@ -1,5 +1,5 @@
 export const siteImages = {
-  homeHero: '/images/home-hero.jpg',
-  homeShowcase: '/images/home-showcase.jpg',
-  servicesHero: '/images/services-hero.jpg'
+  homeHero: '/images/home-hero.png',
+  homeShowcase: '/images/home-showcase.png',
+  servicesHero: '/images/services-hero.png'
 };
