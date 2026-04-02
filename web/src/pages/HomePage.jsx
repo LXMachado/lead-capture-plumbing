@@ -14,10 +14,10 @@ export default function HomePage() {
       <section className="section-block section-surface">
         <div className="site-shell space-y-10">
           <div className="section-intro">
-            <p className="eyebrow">Specialised Solutions</p>
-            <h2 className="section-title">Conversion-first service storytelling for urgent local jobs.</h2>
+            <p className="eyebrow">Our Services</p>
+            <h2 className="section-title">Complete plumbing solutions for Gold Coast & Brisbane homes.</h2>
             <p className="section-copy">
-              The homepage now follows the design system: strong editorial hierarchy, repeated CTA entry points, and clear service positioning for high-intent plumbing searches.
+              From emergency repairs to preventative maintenance, our licensed team delivers fast, reliable service across South East Queensland.
             </p>
           </div>
           <ServiceCards />
@@ -42,13 +42,13 @@ export default function HomePage() {
           </div>
 
           <div className="space-y-10">
-            <div className="space-y-4">
-              <p className="eyebrow">Why homeowners convert</p>
-              <h2 className="section-title">Precision engineering, local heart.</h2>
-              <p className="section-copy">
-                The site positions the business as premium and dependable without adding unnecessary complexity. Messaging stays focused on urgency, trust, and property protection.
-              </p>
-            </div>
+          <div className="space-y-4">
+            <p className="eyebrow">Why homeowners choose us</p>
+            <h2 className="section-title">Reliable plumbing you can trust.</h2>
+            <p className="section-copy">
+              We combine precision engineering with local knowledge to protect your property and keep your plumbing running smoothly.
+            </p>
+          </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
               {trustPoints.map((point) => (
@@ -72,15 +72,15 @@ export default function HomePage() {
           <div className="space-y-6 text-white">
             <p className="eyebrow text-tertiary-fixed">Need a plumber now?</p>
             <h2 className="font-display text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">
-              Fast lead capture without slowing down the site.
+              Get a fast callback within the hour.
             </h2>
             <p className="max-w-2xl text-base leading-8 text-primary-fixed">
-              The quote flow supports the advanced tier fields already wired into the API: urgency, suburb, preferred contact time, and service type.
+              Tell us about your plumbing issue and we'll connect you with a licensed plumber fast. Priority jobs call directly for immediate assistance.
             </p>
             <div className="flex flex-wrap gap-6 text-sm font-semibold uppercase tracking-[0.12em] text-tertiary-fixed">
               <span>24/7 available</span>
               <span>{business.emergencyResponse}</span>
-              <span>Simple admin workflow</span>
+              <span>Licensed & insured</span>
             </div>
           </div>
 
@@ -92,7 +92,7 @@ export default function HomePage() {
         <div className="site-shell space-y-8">
           <div className="section-intro">
             <p className="eyebrow">Service Areas</p>
-            <h2 className="section-title">Local coverage designed for relevant search intent.</h2>
+            <h2 className="section-title">Proudly serving South East Queensland.</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
             {coverageAreas.map((area) => (
