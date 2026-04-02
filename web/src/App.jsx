@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
@@ -16,6 +17,8 @@ const linkClass = ({ isActive }) =>
   `nav-link${isActive ? ' nav-link-active' : ''}`;
 
 export default function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-surface text-on-surface">
       <header className="sticky top-0 z-50 border-b border-outline-variant/15 bg-white/78 backdrop-blur-xl">
@@ -37,7 +40,21 @@ export default function App() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex items-center justify-center p-2 md:hidden"
+            aria-label="Toggle menu"
+          >
+            <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+
+          <div className="hidden items-center gap-3 md:flex">
             <NavLink
               to="/contact"
               className="hidden rounded-full px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/6 lg:inline-flex"
@@ -49,6 +66,28 @@ export default function App() {
             </a>
           </div>
         </div>
+
+        {mobileMenuOpen && (
+          <nav className="flex flex-col border-t border-outline-variant/15 bg-white px-4 py-4 md:hidden">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg px-4 py-3 text-base font-semibold text-primary transition hover:bg-primary/6"
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <NavLink
+              to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-2 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-white"
+            >
+              Request Quote
+            </NavLink>
+          </nav>
+        )}
       </header>
 
       <main>
