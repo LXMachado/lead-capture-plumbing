@@ -14,7 +14,7 @@ export default function ServiceCards({ limit }) {
           }`}
         >
           <div className="space-y-4">
-            <p className="eyebrow">{service.eyebrow}</p>
+            <p className={`eyebrow ${service.accent === 'dark' ? 'eyebrow-dark' : ''}`}>{service.eyebrow}</p>
             <h3 className={`font-display text-2xl font-extrabold tracking-[-0.03em] md:text-3xl ${service.accent === 'dark' ? 'text-white' : 'text-primary'}`}>
               {service.title}
             </h3>

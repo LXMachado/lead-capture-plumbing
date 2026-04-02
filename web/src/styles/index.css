@@ -98,6 +98,11 @@
     color: #003f87;
   }
 
+  .eyebrow-dark {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+
   .section-intro {
     @apply max-w-3xl space-y-4;
   }
