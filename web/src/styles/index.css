@@ -264,6 +264,10 @@
     background: linear-gradient(135deg, #003f87, #0f5bb8);
   }
 
+  .service-card-dark h3 {
+    color: #ffffff !important;
+  }
+
   .stat-pill {
     @apply rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em];
     background-color: rgba(0, 63, 135, 0.08);
