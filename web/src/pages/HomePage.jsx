@@ -74,7 +74,7 @@ export default function HomePage() {
             <h2 className="font-display text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">
               Get a fast callback within the hour.
             </h2>
-            <p className="max-w-2xl text-base leading-8 text-primary-fixed">
+            <p className="max-w-2xl text-base leading-8 text-white/90">
               Tell us about your plumbing issue and we'll connect you with a licensed plumber fast. Priority jobs call directly for immediate assistance.
             </p>
             <div className="flex flex-wrap gap-6 text-sm font-semibold uppercase tracking-[0.12em] text-tertiary-fixed">

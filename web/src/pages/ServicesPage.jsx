@@ -28,7 +28,7 @@ export default function ServicesPage() {
               for Plumbing
               <span className="block text-tertiary-fixed">Emergencies.</span>
             </h1>
-            <p className="max-w-xl text-lg leading-8 text-primary-fixed">
+            <p className="max-w-xl text-lg leading-8 text-white/90">
               This page mirrors the supplied service-detail direction: urgent messaging, premium presentation, and a form module placed directly beside the conversion narrative.
             </p>
             <div className="flex flex-wrap gap-3">

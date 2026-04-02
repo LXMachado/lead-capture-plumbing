@@ -24,7 +24,7 @@ export default function Hero() {
               <br />
               Plumbing
             </h1>
-            <p className="max-w-xl text-lg leading-8 text-primary-fixed sm:text-xl">
+            <p className="max-w-xl text-lg leading-8 text-white/90 sm:text-xl">
               The trusted choice for homeowners across Gold Coast and Brisbane. Licensed, insured, and structured for urgent response.
             </p>
           </div>

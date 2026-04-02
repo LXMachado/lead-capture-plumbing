@@ -15,10 +15,10 @@ export default function ServiceCards({ limit }) {
         >
           <div className="space-y-4">
             <p className="eyebrow">{service.eyebrow}</p>
-            <h3 className="font-display text-2xl font-extrabold tracking-[-0.03em] text-primary md:text-3xl">
+            <h3 className={`font-display text-2xl font-extrabold tracking-[-0.03em] md:text-3xl ${service.accent === 'dark' ? 'text-white' : 'text-primary'}`}>
               {service.title}
             </h3>
-            <p className={`max-w-xl text-sm leading-7 ${service.accent === 'dark' ? 'text-primary-fixed' : 'text-secondary'}`}>
+            <p className={`max-w-xl text-sm leading-7 ${service.accent === 'dark' ? 'text-white/80' : 'text-secondary'}`}>
               {service.summary}
             </p>
             <p className={`max-w-xl text-sm leading-7 ${service.accent === 'dark' ? 'text-white/70' : 'text-secondary/90'}`}>
