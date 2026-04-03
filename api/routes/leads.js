@@ -3,8 +3,6 @@ import { pool } from '../db.js';
 import nodemailer from 'nodemailer';
 import {
   ADMIN_STATUSES,
-  CONTACT_TIME_VALUES,
-  URGENCY_VALUES,
   buildLeadPayload,
   buildLeadQueryFilters,
   coerceOptionalTimestamp,
