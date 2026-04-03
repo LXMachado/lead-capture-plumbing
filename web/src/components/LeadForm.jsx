@@ -8,11 +8,17 @@ const initialForm = {
   service_type: '',
   urgency: 'medium',
   suburb: '',
-  contact_time: '',
+  contact_time: 'any',
   message: ''
 };
 
-const DEMO_MODE = true;
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
+const contactTimeOptions = [
+  { value: 'any', label: 'Any time' },
+  { value: 'morning', label: 'Morning' },
+  { value: 'afternoon', label: 'Afternoon' },
+  { value: 'evening', label: 'Evening' }
+];
 
 export default function LeadForm({
   title = 'Get a Quick Quote',
@@ -45,11 +51,21 @@ export default function LeadForm({
         });
       } else {
         const baseUrl = import.meta.env.VITE_API_URL || '/api';
-        await fetch(`${baseUrl}/leads`, {
+        const response = await fetch(`${baseUrl}/leads`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form)
+          body: JSON.stringify({
+            ...form,
+            source: 'webform',
+            page: window.location.pathname
+          })
         });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Submission failed');
+        }
+
         setStatus({ type: 'success', message: 'Request received. We will contact you shortly.' });
       }
       setForm(initialForm);
@@ -58,7 +74,7 @@ export default function LeadForm({
         type: 'error',
         message: DEMO_MODE 
           ? 'Demo mode active - submission simulated.' 
-          : 'Submission failed. Please call if the issue is urgent.'
+          : error.message || 'Submission failed. Please call if the issue is urgent.'
       });
     } finally {
       setIsSubmitting(false);
@@ -114,12 +130,17 @@ export default function LeadForm({
         </label>
         <label className="field sm:col-span-2">
           <span>Preferred Contact Time</span>
-          <input
+          <select
             value={form.contact_time}
             onChange={update('contact_time')}
-            placeholder="Call after 3pm"
             className="input"
-          />
+          >
+            {contactTimeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </label>
       </div>
 

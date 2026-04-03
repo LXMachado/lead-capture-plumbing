@@ -1,47 +1,152 @@
 # Lead Capture Plumbing
 
-Production-ready local plumbing lead capture system.
+Lead capture MVP for a plumbing business, with a React frontend and an Express/Postgres API.
 
 ## Structure
 
-- /web : React + Vite + Tailwind frontend
-- /api : Node.js Express backend + PostgreSQL
+- `web/`: React + Vite frontend
+- `api/`: Express API + PostgreSQL storage
 
-## Tier 1: Frontend Only
+## Backend features
 
-1. `cd web`
-2. `npm install`
-3. `npm run dev`
+- SQL-file migrations applied automatically on API startup
+- Expanded `leads` schema with operational fields such as `source`, `page`, `next_action_at`, `assigned_to`, `quote_amount`, `created_at`, and `updated_at`
+- `lead_notes` table for lead history
+- Indexed filtering on `created_at`, `status`, and `service_type`
+- Admin-protected lead listing and status updates
+- Input validation and lightweight rate limiting on lead submission
 
-Works as static site with form submission via Netlify/Vercel (or call your API if configured via `VITE_API_URL`).
+## Local setup
 
-## Tier 2: Full Stack
+### 1. Start PostgreSQL
 
-1. `cd api`
-1. `cd api`
-ull Stack
-ith form submission via Netlify/Vercel (or call your API if configured via `VITE_API_URL`).
-ig.
-4. `npm run start`
+Create a database and provide its connection string through `DATABASE_URL`.
 
-`POST /api/leads` stores leads in Postgres.
-`GET /api/leads` requires `Authorization: Bearer <ADMIN_TOKEN>`.
+Example:
 
-## Tier 3: Automation + Dashboard
+```bash
+createdb lead_capture_plumbing
+```
 
-- Lead fields: urgency, suburb, preferred contact time
-- Email send on new lead (SMTP settings required)
-- Admin route in frontend: `/admin` (token login)
-- Filtering by date/status/service
+### 2. Configure API env
 
-## Deployment
+Copy `api/.env.example` to `api/.env` and update values as needed.
 
-- Frontend: deploy `web/dist` to Netlify/Vercel.
-- Bac- Bac- Bac- Bac- Bac- Bac- Bac- Bac- Bac- Bac- Ba environment variables).
-- DB: Supabase Postgres.
+Required for local API use:
 
-## Notes
+- `DATABASE_URL`
+- `ADMIN_TOKEN`
 
-- Lighthouse-focused: mobile-first, minimal dependency set, no heavy runtime features.
-- `VITE_API_URL`, `VITE_ADMIN_TOKEN` should be env variables in production.
-- Keep `ADMIN_TOKEN` secret.
+Optional:
+
+- `PORT`
+- SMTP settings for new-lead notification emails
+
+### 3. Run the API
+
+```bash
+cd api
+npm install
+npm run dev
+```
+
+On startup, the API will apply any pending SQL migrations automatically.
+
+### 4. Run the frontend
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+If the frontend is served separately from the API, set:
+
+```bash
+VITE_API_URL=http://localhost:4000/api
+```
+
+Optional frontend env:
+
+```bash
+VITE_DEMO_MODE=true
+```
+
+When `VITE_DEMO_MODE` is not set to `true`, the form and admin page use the live API.
+
+## API
+
+### `POST /api/leads`
+
+Creates a lead.
+
+Example payload:
+
+```json
+{
+  "name": "Jane Smith",
+  "phone": "0400 111 222",
+  "email": "jane@example.com",
+  "service_type": "Blocked drain",
+  "urgency": "medium",
+  "suburb": "Robina",
+  "contact_time": "morning",
+  "message": "Kitchen sink blocked",
+  "source": "webform",
+  "page": "/contact"
+}
+```
+
+Allowed values:
+
+- `urgency`: `low`, `medium`, `emergency`
+- `contact_time`: `any`, `morning`, `afternoon`, `evening`
+- `source`: `webform`, `call`
+
+### `GET /api/leads`
+
+Requires:
+
+```http
+Authorization: Bearer <ADMIN_TOKEN>
+```
+
+Supported query params:
+
+- `service_type`
+- `status`
+- `from` (`YYYY-MM-DD`)
+- `to` (`YYYY-MM-DD`)
+
+### `PATCH /api/leads/:id/status`
+
+Requires:
+
+```http
+Authorization: Bearer <ADMIN_TOKEN>
+Content-Type: application/json
+```
+
+Example payload:
+
+```json
+{
+  "status": "contacted",
+  "next_action_at": "2026-04-04T09:00:00.000Z"
+}
+```
+
+Allowed status values:
+
+- `new`
+- `contacted`
+- `booked`
+
+## Testing
+
+API tests are mock-based and do not require a running database:
+
+```bash
+cd api
+npm test
+```

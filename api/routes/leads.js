@@ -1,14 +1,20 @@
 import express from 'express';
-import { pool, initDb } from '../db.js';
+import { pool } from '../db.js';
 import nodemailer from 'nodemailer';
+import {
+  ADMIN_STATUSES,
+  CONTACT_TIME_VALUES,
+  URGENCY_VALUES,
+  buildLeadPayload,
+  buildLeadQueryFilters,
+  coerceOptionalTimestamp,
+  normalizeStatus
+} from '../validation/leads.js';
 
 const router = express.Router();
-
-// Ensure schema exists (idempotent)
-initDb().catch((err) => {
-  console.error('DB initialization error', err);
-  process.exit(1);
-});
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const requestBuckets = new Map();
 
 const ensureAdmin = (req, res, next) => {
   const key = req.headers.authorization?.split(' ')[1];
@@ -18,17 +24,63 @@ const ensureAdmin = (req, res, next) => {
   next();
 };
 
-router.post('/', async (req, res) => {
-  const { name, phone, email = '', service_type, urgency = 'medium', suburb = '', contact_time = '', message = '' } = req.body;
+const checkLeadRateLimit = (req, res, next) => {
+  const now = Date.now();
+  const key = req.ip || req.headers['x-forwarded-for'] || 'unknown';
+  const recent = (requestBuckets.get(key) || []).filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS);
 
-  if (!name || !phone || !service_type) {
-    return res.status(400).json({ message: 'name, phone and service_type are required' });
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    return res.status(429).json({ message: 'Too many submissions. Please try again shortly.' });
+  }
+
+  recent.push(now);
+  requestBuckets.set(key, recent);
+  next();
+};
+
+router.post('/', checkLeadRateLimit, async (req, res) => {
+  const payload = buildLeadPayload(req.body);
+
+  if (!payload.ok) {
+    return res.status(400).json({ message: payload.message, fields: payload.fields });
   }
 
   try {
     const insert = await pool.query(
-      'INSERT INTO leads (name, phone, email, service_type, urgency, suburb, contact_time, message) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
-      [name, phone, email, service_type, urgency, suburb, contact_time, message]
+      `
+        INSERT INTO leads (
+          name,
+          phone,
+          email,
+          service_type,
+          urgency,
+          suburb,
+          contact_time,
+          message,
+          source,
+          page,
+          next_action_at,
+          assigned_to,
+          quote_amount
+        )
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+        RETURNING *
+      `,
+      [
+        payload.value.name,
+        payload.value.phone,
+        payload.value.email,
+        payload.value.service_type,
+        payload.value.urgency,
+        payload.value.suburb,
+        payload.value.contact_time,
+        payload.value.message,
+        payload.value.source,
+        payload.value.page,
+        payload.value.next_action_at,
+        payload.value.assigned_to,
+        payload.value.quote_amount
+      ]
     );
 
     const lead = insert.rows[0];
@@ -47,8 +99,18 @@ router.post('/', async (req, res) => {
       await transporter.sendMail({
         from: process.env.EMAIL_FROM,
         to: process.env.EMAIL_TO,
-        subject: `New plumbing lead: ${service_type}`,
-        text: `New lead received:\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service_type}\nUrgency: ${urgency}\nSuburb: ${suburb}\nContact time: ${contact_time}\nMessage: ${message}`
+        subject: `New plumbing lead: ${lead.service_type}`,
+        text: `New lead received:
+Name: ${lead.name}
+Phone: ${lead.phone}
+Email: ${lead.email || 'Not provided'}
+Service: ${lead.service_type}
+Urgency: ${lead.urgency}
+Suburb: ${lead.suburb || 'Not provided'}
+Contact time: ${lead.contact_time}
+Source: ${lead.source}
+Page: ${lead.page || 'Not provided'}
+Message: ${lead.message || 'Not provided'}`
       });
     }
 
@@ -60,19 +122,18 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', ensureAdmin, async (req, res) => {
-  const { service_type, status, from, to } = req.query;
-  const conditions = [];
-  const values = [];
+  const filters = buildLeadQueryFilters(req.query);
 
-  if (service_type) { values.push(service_type); conditions.push(`service_type = $${values.length}`); }
-  if (status) { values.push(status); conditions.push(`status = $${values.length}`); }
-  if (from) { values.push(new Date(from)); conditions.push(`created_at >= $${values.length}`); }
-  if (to) { values.push(new Date(`${to}T23:59:59`)); conditions.push(`created_at <= $${values.length}`); }
-
-  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  if (!filters.ok) {
+    return res.status(400).json({ message: filters.message, fields: filters.fields });
+  }
 
   try {
-    const result = await pool.query(`SELECT * FROM leads ${where} ORDER BY created_at DESC LIMIT 500`, values);
+    const where = filters.value.conditions.length ? `WHERE ${filters.value.conditions.join(' AND ')}` : '';
+    const result = await pool.query(
+      `SELECT * FROM leads ${where} ORDER BY created_at DESC LIMIT 500`,
+      filters.value.values
+    );
     res.json(result.rows);
   } catch (error) {
     console.error(error);
@@ -82,15 +143,26 @@ router.get('/', ensureAdmin, async (req, res) => {
 
 router.patch('/:id/status', ensureAdmin, async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body;
+  const status = normalizeStatus(req.body?.status);
+  const nextActionAt = coerceOptionalTimestamp(req.body?.next_action_at);
 
-  const allowed = ['new', 'contacted', 'booked'];
-  if (!allowed.includes(status)) {
-    return res.status(400).json({ message: 'Invalid status value' });
+  if (!Number.isInteger(Number(id)) || Number(id) <= 0) {
+    return res.status(400).json({ message: 'Invalid lead id' });
+  }
+
+  if (!ADMIN_STATUSES.includes(status)) {
+    return res.status(400).json({ message: `status must be one of: ${ADMIN_STATUSES.join(', ')}` });
+  }
+
+  if (req.body?.next_action_at && nextActionAt === null) {
+    return res.status(400).json({ message: 'next_action_at must be a valid ISO date-time' });
   }
 
   try {
-    const updated = await pool.query('UPDATE leads SET status = $1 WHERE id = $2 RETURNING *', [status, id]);
+    const updated = await pool.query(
+      'UPDATE leads SET status = $1, next_action_at = COALESCE($2, next_action_at) WHERE id = $3 RETURNING *',
+      [status, nextActionAt, id]
+    );
     if (!updated.rows.length) return res.status(404).json({ message: 'Lead not found' });
     res.json(updated.rows[0]);
   } catch (error) {

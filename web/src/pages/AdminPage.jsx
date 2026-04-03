@@ -13,7 +13,7 @@ const urgencyTone = {
   emergency: 'pill-critical'
 };
 
-const DEMO_MODE = true;
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
 
 // Demo leads for display when no API is connected
 const demoLeads = [
@@ -54,6 +54,9 @@ export default function AdminPage() {
           headers: { Authorization: `Bearer ${authToken}` }
         });
         const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed loading leads');
+        }
         setLeads(data);
         setError('');
       }
@@ -103,11 +106,14 @@ export default function AdminPage() {
           }
         );
         const updated = await response.json();
+        if (!response.ok) {
+          throw new Error(updated.message || 'Status update failed');
+        }
         setLeads((current) =>
           current.map((lead) => (lead.id === id ? updated : lead))
         );
-      } catch {
-        setError('Status update failed');
+      } catch (error) {
+        setError(error.message || 'Status update failed');
       }
     }
   }
@@ -122,12 +128,18 @@ export default function AdminPage() {
               Unlock lead management
             </h1>
             <p className="mt-4 text-base leading-8 text-secondary">
-              Demo mode active - enter any token to view sample leads.
+              {DEMO_MODE
+                ? 'Demo mode active. Enter any token to view sample leads.'
+                : 'Enter the admin token to view and update leads.'}
             </p>
             <form onSubmit={login} className="mt-8 space-y-4">
               <label className="field">
                 <span>Admin Token</span>
-                <input name="token" className="input" placeholder="Enter any token for demo" />
+                <input
+                  name="token"
+                  className="input"
+                  placeholder={DEMO_MODE ? 'Enter any token for demo' : 'Enter admin token'}
+                />
               </label>
               {error ? <p className="form-status form-status-error">{error}</p> : null}
               <button type="submit" className="btn btn-form-submit">
@@ -174,7 +186,9 @@ export default function AdminPage() {
                 Lead Management
               </h2>
               <p className="mt-2 text-base leading-8 text-secondary">
-                Demo mode - viewing sample leads for Gold Coast and Brisbane.
+                {DEMO_MODE
+                  ? 'Demo mode - viewing sample leads for Gold Coast and Brisbane.'
+                  : 'Operational lead view backed by the live API.'}
               </p>
             </div>
 
@@ -329,7 +343,9 @@ export default function AdminPage() {
                 Active Service Coverage
               </h3>
               <p className="mt-4 text-base leading-8 text-secondary">
-                Demo mode - sample data shown for illustration purposes.
+                {DEMO_MODE
+                  ? 'Demo mode - sample data shown for illustration purposes.'
+                  : 'Coverage and dispatch planning can be layered onto live lead data.'}
               </p>
               <ul className="mt-6 space-y-3 text-sm text-secondary">
                 <li>Gold Coast: highest activity</li>
