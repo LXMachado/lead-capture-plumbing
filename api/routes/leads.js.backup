@@ -1,7 +1,6 @@
 import express from 'express';
 import { pool } from '../db.js';
 import nodemailer from 'nodemailer';
-import { rateLimiter } from '../rateLimiter.js';
 import {
   ADMIN_STATUSES,
   buildLeadPayload,
@@ -11,6 +10,9 @@ import {
 } from '../validation/leads.js';
 
 const router = express.Router();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const requestBuckets = new Map();
 
 const ensureAdmin = (req, res, next) => {
   const key = req.headers.authorization?.split(' ')[1];
@@ -20,17 +22,17 @@ const ensureAdmin = (req, res, next) => {
   next();
 };
 
-const checkLeadRateLimit = async (req, res, next) => {
-  const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown';
-  const rateLimitResult = await rateLimiter.consume(ip);
-  
-  if (!rateLimitResult.allowed) {
-    return res.status(429).json({ 
-      message: 'Too many submissions. Please try again shortly.',
-      retryAfter: rateLimitResult.retryAfter
-    });
+const checkLeadRateLimit = (req, res, next) => {
+  const now = Date.now();
+  const key = req.ip || req.headers['x-forwarded-for'] || 'unknown';
+  const recent = (requestBuckets.get(key) || []).filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS);
+
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    return res.status(429).json({ message: 'Too many submissions. Please try again shortly.' });
   }
-  
+
+  recent.push(now);
+  requestBuckets.set(key, recent);
   next();
 };
 
