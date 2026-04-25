@@ -1,8 +1,8 @@
 export const business = {
   name: 'Mermaid Plumbing',
   legalName: 'Mermaid Plumbing',
-  phoneDisplay: '(07) 5555 5555',
-  phoneHref: 'tel:+61755555555',
+  phoneDisplay: '(07) 5588 1234',
+  phoneHref: 'tel:+61755881234',
   serviceAreas: ['Mermaid Beach', 'Broadbeach', 'Robina', 'Burleigh Heads'],
   emergencyResponse: 'Fast response times',
   blurb:
