@@ -6,10 +6,29 @@ import Testimonials from '../components/Testimonials';
 import { business, coverageAreas, trustPoints } from '../data/siteContent';
 import { siteImages } from '../data/siteImages';
 
+const proofMetrics = [
+  '100+ Jobs Completed',
+  'Gold Coast Local',
+  'Fast Response Daily',
+  'Clear Upfront Pricing'
+];
+
 export default function HomePage() {
   return (
     <div>
       <Hero />
+
+      <section className="proof-strip-section">
+        <div className="site-shell">
+          <div className="proof-strip">
+            {proofMetrics.map((metric) => (
+              <div key={metric} className="proof-metric">
+                {metric}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="section-block section-surface">
         <div className="site-shell space-y-10">
@@ -65,6 +84,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section-block section-surface">
+        <div className="site-shell grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="owner-photo">
+            <img src={siteImages.homeHero} alt="Mermaid Plumbing owner beside a branded van on the Gold Coast" />
+          </div>
+          <div className="space-y-5">
+            <p className="eyebrow">Meet the Owner</p>
+            <h2 className="section-title">Owner-Operated Local Plumbing.</h2>
+            <p className="section-copy">
+              Local Gold Coast plumber focused on honest service, quality workmanship and fast communication.
+            </p>
+            <p className="section-copy">
+              Mermaid Plumbing is built around straightforward advice, respectful work in your home, and clear next steps from the first call.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Testimonials />
 
       <section className="section-block bg-primary">
@@ -84,7 +121,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <LeadForm compact title="Quick Callback" subtitle="Tell us what is happening and we will contact you quickly to organise the next step." />
+          <LeadForm compact title="Request Fast Plumbing Callback" subtitle="Tell us what is happening and we will contact you quickly to organise the next step." />
         </div>
       </section>
 
@@ -109,6 +146,10 @@ export default function HomePage() {
             <Link to="/services" className="btn btn-secondary">
               Explore Services
             </Link>
+          </div>
+          <div className="seo-suburb-block">
+            <p className="footer-heading">Servicing</p>
+            <p>{coverageAreas.join(', ')}.</p>
           </div>
         </div>
       </section>

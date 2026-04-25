@@ -28,7 +28,7 @@ export const publicServices = [
       'We prioritise urgent local callouts across the Gold Coast when plumbing problems cannot wait.',
     accent: 'light',
     stats: ['24/7 Priority', 'Fast Response'],
-    cta: 'Book Emergency Service'
+    cta: 'Get Fast Help Now'
   },
   {
     title: 'Blocked Drains',
@@ -64,7 +64,7 @@ export const publicServices = [
       'Every gas fitting job is completed with compliance, testing and safety checks built into the workflow.',
     accent: 'light',
     stats: ['Licensed Work', 'Safe Installations'],
-    cta: 'Request Service'
+    cta: 'Book Local Plumber'
   }
 ];
 
@@ -110,12 +110,13 @@ export const testimonials = [
 
 export const coverageAreas = [
   'Mermaid Beach',
+  'Mermaid Waters',
   'Broadbeach',
+  'Miami',
   'Robina',
   'Burleigh Heads',
   'Southport',
   'Varsity Lakes',
-  'Miami',
   'Palm Beach'
 ];
 

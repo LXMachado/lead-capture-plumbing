@@ -174,13 +174,38 @@
     @apply h-11 w-11 rounded-xl object-cover shadow-soft;
   }
 
+  .header-phone-cta {
+    @apply inline-flex flex-col rounded-2xl px-5 py-3 text-white shadow-soft transition;
+    background: linear-gradient(135deg, #884800, #663400);
+  }
+
+  .header-phone-cta:hover {
+    filter: brightness(1.05);
+  }
+
+  .header-phone-cta span {
+    @apply text-[10px] font-black uppercase tracking-[0.16em] text-white/80;
+  }
+
+  .header-phone-cta strong {
+    @apply font-display text-sm font-extrabold;
+  }
+
   .footer-heading {
     @apply font-display text-sm font-bold uppercase tracking-[0.16em] text-[#ffdcc3];
   }
 
+  .mobile-cta-bar {
+    @apply fixed bottom-4 left-4 right-4 z-50 grid grid-cols-2 gap-3;
+  }
+
   .mobile-call {
-    @apply fixed bottom-4 right-4 z-50 rounded-full px-5 py-3 font-display text-sm font-extrabold text-white shadow-soft;
+    @apply rounded-full px-5 py-3 text-center font-display text-sm font-extrabold text-white shadow-soft;
     background: linear-gradient(135deg, #884800, #663400);
+  }
+
+  .mobile-quote {
+    @apply rounded-full bg-primary px-5 py-3 text-center font-display text-sm font-extrabold text-white shadow-soft;
   }
 
   .hero-shell {
@@ -264,6 +289,19 @@
     @apply h-20 w-20 rounded-2xl object-cover shadow-soft;
   }
 
+  .proof-strip-section {
+    @apply -mt-10 relative z-10 pb-10;
+  }
+
+  .proof-strip {
+    @apply grid gap-3 rounded-[1.75rem] bg-white p-4 shadow-soft sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  .proof-metric {
+    @apply rounded-2xl px-4 py-4 text-center font-display text-sm font-extrabold text-primary;
+    background-color: #f3f4f5;
+  }
+
   .hero-stat {
     @apply rounded-2xl p-4;
     background-color: #f3f4f5;
@@ -332,6 +370,15 @@
     @apply absolute -bottom-6 -right-6 hidden h-56 w-56 rounded-[2rem] bg-primary md:block;
   }
 
+  .owner-photo {
+    @apply overflow-hidden rounded-[2rem] shadow-soft;
+  }
+
+  .owner-photo img {
+    @apply h-full min-h-[24rem] w-full object-cover;
+    object-position: 58% center;
+  }
+
   .trust-item {
     @apply flex gap-4;
   }
@@ -396,6 +443,18 @@
     @apply rounded-2xl px-4 py-4 text-center text-sm font-semibold shadow-soft;
     background-color: #f3f4f5;
     color: #003f87;
+  }
+
+  .seo-suburb-block {
+    @apply rounded-[1.75rem] bg-white p-6 shadow-soft;
+  }
+
+  .seo-suburb-block .footer-heading {
+    color: #003f87;
+  }
+
+  .seo-suburb-block p:last-child {
+    @apply mt-3 text-sm leading-7 text-secondary;
   }
 
   .service-hero {

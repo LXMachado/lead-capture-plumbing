@@ -3,10 +3,10 @@ import { business } from '../data/siteContent';
 import { siteImages } from '../data/siteImages';
 
 const trustItems = [
-  '★★★★★ Local Rated',
-  'Licensed & Insured',
+  '★★★★★ Rated by Gold Coast locals',
+  'Licensed QBCC',
+  'Fully Insured',
   'Same-Day Available',
-  'Upfront Pricing'
 ];
 
 export default function Hero() {
@@ -27,7 +27,7 @@ export default function Hero() {
           <div className="hero-badge">Mermaid Beach • Gold Coast Local</div>
           <div className="space-y-5">
             <h1 className="font-display text-5xl font-extrabold leading-[0.92] tracking-[-0.04em] text-white md:text-7xl">
-              Trusted Gold Coast Plumbing, Fast When You Need It.
+              Need a Gold Coast Plumber? Fast, Licensed & Local.
             </h1>
             <p className="max-w-xl text-lg leading-8 text-white/90 sm:text-xl">
               Local licensed plumbers servicing Mermaid Beach, Broadbeach, Robina, Burleigh and surrounding Gold Coast suburbs. Fast response, clear pricing, quality workmanship.

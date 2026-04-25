@@ -59,8 +59,9 @@ export default function App() {
             >
               Request Quote
             </NavLink>
-            <a href={business.phoneHref} className="btn btn-emergency text-sm">
-              Emergency Call
+            <a href={business.phoneHref} className="header-phone-cta">
+              <span>Emergency Call</span>
+              <strong>{business.phoneDisplay}</strong>
             </a>
           </div>
         </div>
@@ -120,9 +121,14 @@ export default function App() {
         </div>
       </footer>
 
-      <a href={business.phoneHref} className="mobile-call md:hidden">
-        Call {business.phoneDisplay}
-      </a>
+      <div className="mobile-cta-bar md:hidden">
+        <a href={business.phoneHref} className="mobile-call">
+          📞 Call Now
+        </a>
+        <NavLink to="/contact" className="mobile-quote">
+          📩 Quote
+        </NavLink>
+      </div>
     </div>
   );
 }
