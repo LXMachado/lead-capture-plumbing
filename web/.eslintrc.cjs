@@ -19,6 +19,17 @@ module.exports = {
       version: 'detect'
     }
   },
+  overrides: [
+    {
+      files: ['src/**/*.test.jsx'],
+      globals: {
+        beforeEach: 'readonly',
+        describe: 'readonly',
+        expect: 'readonly',
+        test: 'readonly'
+      }
+    }
+  ],
   rules: {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off'

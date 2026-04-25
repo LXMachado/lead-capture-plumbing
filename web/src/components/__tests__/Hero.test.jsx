@@ -4,6 +4,6 @@ import Hero from '../Hero';
 describe('Hero', () => {
   test('renders without crashing', () => {
     renderWithRouter(<Hero />);
-    expect(screen.getByText(/Available 24\/7/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Trusted Gold Coast Plumbing/i })).toBeInTheDocument();
   });
 });

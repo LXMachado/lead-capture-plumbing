@@ -2,6 +2,13 @@ import { Link } from 'react-router-dom';
 import { business } from '../data/siteContent';
 import { siteImages } from '../data/siteImages';
 
+const trustItems = [
+  '★★★★★ Local Rated',
+  'Licensed & Insured',
+  'Same-Day Available',
+  'Upfront Pricing'
+];
+
 export default function Hero() {
   return (
     <section className="hero-shell">
@@ -17,43 +24,48 @@ export default function Hero() {
       <div className="hero-overlay" />
       <div className="hero-grid site-shell">
         <div className="max-w-2xl space-y-7">
-          <div className="hero-badge">Available 24/7</div>
+          <div className="hero-badge">Mermaid Beach • Gold Coast Local</div>
           <div className="space-y-5">
             <h1 className="font-display text-5xl font-extrabold leading-[0.92] tracking-[-0.04em] text-white md:text-7xl">
-              Fast, Reliable
-              <br />
-              Plumbing
+              Trusted Gold Coast Plumbing, Fast When You Need It.
             </h1>
             <p className="max-w-xl text-lg leading-8 text-white/90 sm:text-xl">
-              The trusted choice for homeowners across Gold Coast and Brisbane. Licensed, insured, and structured for urgent response.
+              Local licensed plumbers servicing Mermaid Beach, Broadbeach, Robina, Burleigh and surrounding Gold Coast suburbs. Fast response, clear pricing, quality workmanship.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <a href={business.phoneHref} className="btn btn-hero-primary">
-              Call {business.phoneDisplay}
+              Call Now
             </a>
             <Link to="/contact" className="btn btn-hero-secondary">
-              Request a Quote
+              Get Free Quote
             </Link>
+          </div>
+          <div className="hero-trust-strip">
+            {trustItems.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
           </div>
         </div>
 
         <div className="hero-panel">
-          <p className="eyebrow">Emergency plumbing</p>
+          <img src={siteImages.icon} alt="" className="hero-panel-icon" />
+          <p className="eyebrow">Emergency plumbing response</p>
           <h2 className="font-display text-3xl font-extrabold tracking-[-0.03em] text-primary">
-            Precision care for urgent failures.
+            Emergency Plumbing Response
           </h2>
           <p className="text-sm leading-7 text-secondary">
-            Burst pipes, active leaks, hot water outages, and blocked drains handled with a response-first workflow that protects the property before anything else.
+            Burst pipe, blocked drain, leaking hot water or urgent issue? We prioritise fast local callouts across the Gold Coast.
           </p>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3">
             <div className="hero-stat">
-              <strong>{business.emergencyResponse}</strong>
-              <span>Target arrival window</span>
+              <strong>Fast Response Times</strong>
             </div>
             <div className="hero-stat">
-              <strong>Licensed team</strong>
-              <span>Insured local operators</span>
+              <strong>Licensed Local Plumbers</strong>
+            </div>
+            <div className="hero-stat">
+              <strong>Clean & Respectful Service</strong>
             </div>
           </div>
         </div>

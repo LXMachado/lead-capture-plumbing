@@ -5,6 +5,7 @@ import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './pages/AdminPage';
 import { business } from './data/siteContent';
+import { siteImages } from './data/siteImages';
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -26,9 +27,10 @@ export default function App() {
           <div>
             <NavLink
               to="/"
-              className="font-display text-sm font-extrabold uppercase tracking-[0.18em] text-primary sm:text-base"
+              className="brand-link"
             >
-              {business.name}
+              <img src={siteImages.icon} alt="" className="brand-icon" />
+              <span>{business.name}</span>
             </NavLink>
           </div>
 
@@ -100,7 +102,7 @@ export default function App() {
           <div className="space-y-4">
             <p className="font-display text-lg font-extrabold">{business.legalName}</p>
             <p className="max-w-sm text-sm text-white/72">
-              Excellence in high-end plumbing infrastructure. Managing precision flow across South East Queensland.
+              Local Gold Coast plumbers focused on fast response, honest pricing and quality workmanship.
             </p>
           </div>
           <div className="space-y-3 text-sm text-white/72">
@@ -111,9 +113,9 @@ export default function App() {
           </div>
           <div className="space-y-3 text-sm text-white/72">
             <p className="footer-heading">Local</p>
-            <p>Gold Coast</p>
-            <p>Brisbane</p>
-            <p>Ipswich</p>
+            <p>Mermaid Beach</p>
+            <p>Broadbeach</p>
+            <p>Robina</p>
           </div>
         </div>
       </footer>

@@ -5,12 +5,12 @@ export default function Testimonials() {
     <section className="section-block section-surface">
       <div className="site-shell space-y-12">
         <div className="max-w-2xl text-center md:mx-auto">
-          <p className="eyebrow justify-center">Trusted Across The South East</p>
+          <p className="eyebrow justify-center">Trusted Across The Gold Coast</p>
           <h2 className="mt-3 font-display text-4xl font-extrabold tracking-[-0.03em] text-primary">
-            Trusted by homeowners who need speed and clarity.
+            Real Service. Real Results.
           </h2>
           <p className="mt-4 text-base leading-8 text-secondary">
-            The site is built to convert, but the business still has to deliver. These reviews reinforce response time, communication, and workmanship.
+            We focus on honest service, quality workmanship and fast communication.
           </p>
         </div>
 

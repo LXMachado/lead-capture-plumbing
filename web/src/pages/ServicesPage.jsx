@@ -21,15 +21,13 @@ export default function ServicesPage() {
         <div className="service-hero-overlay" />
         <div className="site-shell service-hero-grid">
           <div className="max-w-2xl space-y-6 text-white">
-            <p className="eyebrow text-tertiary-fixed">Available 24/7 Gold Coast + Brisbane</p>
+            <p className="eyebrow text-tertiary-fixed">Mermaid Beach • Gold Coast Local</p>
             <h1 className="font-display text-5xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-6xl">
-              Precision Care
-              <br />
-              for Plumbing
-              <span className="block text-tertiary-fixed">Emergencies.</span>
+              Complete Plumbing Services
+              <span className="block text-tertiary-fixed">for Gold Coast Homes.</span>
             </h1>
             <p className="max-w-xl text-lg leading-8 text-white/90">
-              This page mirrors the supplied service-detail direction: urgent messaging, premium presentation, and a form module placed directly beside the conversion narrative.
+              From urgent repairs to upgrades and preventative maintenance, Mermaid Plumbing keeps your plumbing running properly.
             </p>
             <div className="flex flex-wrap gap-3">
               <span className="service-badge">24/7 Response</span>
@@ -45,14 +43,14 @@ export default function ServicesPage() {
         <div className="site-shell space-y-10">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div className="space-y-4">
-              <p className="eyebrow">Why We Lead</p>
+              <p className="eyebrow">Our Services</p>
               <h2 className="section-title">
-                Rapid response,
-                <span className="text-primary-container"> architectural precision.</span>
+                Fast local support,
+                <span className="text-primary-container"> clear pricing and quality work.</span>
               </h2>
             </div>
             <p className="border-l-4 border-tertiary-container pl-5 text-base italic leading-8 text-secondary">
-              Plumbing is the circulatory system of a property. The interface should treat that fact with more seriousness than a generic trade template.
+              Local licensed plumbers servicing Mermaid Beach, Broadbeach, Robina, Burleigh and surrounding Gold Coast suburbs.
             </p>
           </div>
 
@@ -67,10 +65,10 @@ export default function ServicesPage() {
           <div className="space-y-4">
             <p className="eyebrow">Stop the damage before it spreads</p>
             <h2 className="font-display text-4xl font-extrabold tracking-[-0.03em] text-white sm:text-5xl">
-              Built to convert emergency traffic into real leads.
+              Need a plumber on the Gold Coast?
             </h2>
             <p className="max-w-2xl text-base leading-8 text-white/72">
-              Priority actions remain obvious: call immediately for emergencies, or send a structured request with all the fields needed for dispatch and follow-up.
+              Call now for urgent issues or send a quote request and we will contact you quickly.
             </p>
           </div>
           <div className="flex flex-wrap gap-4">

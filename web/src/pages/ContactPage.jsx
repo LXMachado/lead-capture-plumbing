@@ -11,7 +11,7 @@ export default function ContactPage() {
               <p className="eyebrow">Contact</p>
               <h1 className="section-title">Request a quote or call for urgent plumbing support.</h1>
               <p className="section-copy">
-                The contact page keeps the decision simple: emergency calls go straight to phone, while standard jobs use the structured lead form for cleaner intake.
+                Tell Mermaid Plumbing what is happening and we will contact you quickly to organise the next step.
               </p>
             </div>
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
               </div>
               <div className="contact-card">
                 <p className="contact-label">Service Area</p>
-                <p className="text-sm leading-7 text-secondary">Gold Coast, Brisbane, Ipswich, and nearby South East Queensland suburbs.</p>
+                <p className="text-sm leading-7 text-secondary">Mermaid Beach, Broadbeach, Robina, Burleigh Heads, Miami, Palm Beach and surrounding Gold Coast suburbs.</p>
               </div>
             </div>
           </div>

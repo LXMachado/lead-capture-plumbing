@@ -1,12 +1,12 @@
 export const business = {
-  name: 'Architectural Plumber',
-  legalName: 'Architectural Plumber',
+  name: 'Mermaid Plumbing',
+  legalName: 'Mermaid Plumbing',
   phoneDisplay: '(07) 5555 5555',
   phoneHref: 'tel:+61755555555',
-  serviceAreas: ['Gold Coast', 'Brisbane', 'Ipswich'],
-  emergencyResponse: '60 min response',
+  serviceAreas: ['Mermaid Beach', 'Broadbeach', 'Robina', 'Burleigh Heads'],
+  emergencyResponse: 'Fast response times',
   blurb:
-    'Licensed local plumbers for emergency repairs, blocked drains, hot water systems, and preventative maintenance across South East Queensland.'
+    'Local Gold Coast plumbers focused on fast response, honest pricing and quality workmanship.'
 };
 
 export const serviceOptions = [
@@ -21,96 +21,102 @@ export const publicServices = [
   {
     title: 'Emergency Plumbing',
     slug: 'emergency-plumbing',
-    eyebrow: '24/7 priority dispatch',
+    eyebrow: '24/7 Priority • Fast Response',
     summary:
-      'Burst pipes, active leaks, overflowing fixtures, and urgent failures handled by a rapid-response crew.',
+      'Burst pipes, leaks, overflows and urgent faults repaired quickly and safely.',
     detail:
-      'Our emergency team is positioned across the Gold Coast and Brisbane corridor for faster arrival windows and cleaner, better-documented repairs.',
+      'We prioritise urgent local callouts across the Gold Coast when plumbing problems cannot wait.',
     accent: 'light',
-    stats: ['60 min target response', 'Damage control first']
+    stats: ['24/7 Priority', 'Fast Response'],
+    cta: 'Book Emergency Service'
   },
   {
     title: 'Blocked Drains',
     slug: 'blocked-drains',
-    eyebrow: 'Camera inspection',
+    eyebrow: 'CCTV Camera • Drain Clearing',
     summary:
-      'High-pressure jetting and CCTV diagnostics to identify and clear recurring drain issues without guesswork.',
+      'CCTV drain inspections, clearing stubborn blockages and solving recurring drainage issues.',
     detail:
-      'We document the cause, clear the obstruction, and explain the next maintenance step before it turns into a larger plumbing fault.',
+      'We identify the cause, clear the blockage, and explain the next step before it becomes a larger issue.',
     accent: 'dark',
-    stats: ['CCTV diagnosis', 'Jetting available']
+    stats: ['CCTV Camera', 'Drain Clearing'],
+    cta: 'Fix My Drain'
   },
   {
     title: 'Hot Water Systems',
     slug: 'hot-water-systems',
-    eyebrow: 'Repair or replace',
+    eyebrow: 'Repair or Replace • Same-Day Options',
     summary:
-      'Gas, electric, and instantaneous system repairs with practical replacement advice when repair no longer makes sense.',
+      'Repairs, replacements and new installations for electric and gas hot water systems.',
     detail:
-      'We troubleshoot supply, pressure, and heating faults, then quote the most sensible path for comfort and operating cost.',
+      'We troubleshoot hot water faults and recommend practical repair or replacement options.',
     accent: 'light',
-    stats: ['Gas and electric', 'Same-day options']
+    stats: ['Repair or Replace', 'Same-Day Options'],
+    cta: 'Get Hot Water Help'
   },
   {
     title: 'Gas Fitting',
     slug: 'gas-fitting',
-    eyebrow: 'Licensed work only',
+    eyebrow: 'Licensed Work • Safe Installations',
     summary:
-      'Safe installation, fault finding, and compliance-focused gas fitting for homes and light commercial sites.',
+      'Licensed gas fitting for homes including cooktops, heaters and compliant installations.',
     detail:
-      'Every job is completed by licensed professionals with testing, documentation, and safety checks built into the workflow.',
+      'Every gas fitting job is completed with compliance, testing and safety checks built into the workflow.',
     accent: 'light',
-    stats: ['Compliance focused', 'Install and repair']
+    stats: ['Licensed Work', 'Safe Installations'],
+    cta: 'Request Service'
   }
 ];
 
 export const trustPoints = [
   {
     title: 'Fast Response',
-    copy: 'Emergency call-outs prioritised with practical triage before we arrive.'
-  },
-  {
-    title: 'Licensed & Insured',
-    copy: 'Fully compliant plumbing work for homes, apartments, and small commercial properties.'
+    copy: 'Priority bookings available for urgent issues.'
   },
   {
     title: 'Upfront Pricing',
-    copy: 'You get clear scope and pricing before major repair work begins.'
+    copy: 'Clear quotes before work begins.'
   },
   {
-    title: 'Local Coverage',
-    copy: 'Focused service area across Gold Coast, Brisbane, and nearby growth suburbs.'
+    title: 'Licensed & Insured',
+    copy: 'Qualified professionals, fully compliant.'
+  },
+  {
+    title: 'Local Knowledge',
+    copy: 'Gold Coast homes, units and coastal conditions understood.'
   }
 ];
 
 export const testimonials = [
   {
-    name: 'Sarah Jenkins',
-    location: 'Burleigh Heads',
+    name: 'Local homeowner',
+    location: 'Gold Coast',
     feedback:
-      'Our burst pipe was flooding the downstairs area at 2 AM. They arrived quickly, stopped the damage, and kept the process calm the whole way through.'
+      'Called in the morning for a burst pipe and it was sorted the same day. Great communication.'
   },
   {
-    name: 'Mark Thompson',
-    location: 'Newstead',
+    name: 'Local homeowner',
+    location: 'Gold Coast',
     feedback:
-      'Fast, professional, and they actually explained the blockage using camera footage before fixing it. That level of clarity made the difference.'
+      'They explained the blocked drain issue clearly and fixed it properly the first time.'
   },
   {
-    name: 'Renee Wallace',
-    location: 'Southport',
+    name: 'Local homeowner',
+    location: 'Gold Coast',
     feedback:
-      'Booked for hot water issues and the team gave a sensible repair-vs-replace breakdown instead of pushing the expensive option.'
+      'Professional, punctual and fairly priced. Hard to find trades like this now.'
   }
 ];
 
 export const coverageAreas = [
-  'Gold Coast',
+  'Mermaid Beach',
+  'Broadbeach',
   'Robina',
+  'Burleigh Heads',
   'Southport',
-  'Brisbane',
-  'Ipswich',
-  'Logan'
+  'Varsity Lakes',
+  'Miami',
+  'Palm Beach'
 ];
 
 export const adminStatuses = ['new', 'contacted', 'booked'];

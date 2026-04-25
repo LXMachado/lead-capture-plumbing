@@ -166,6 +166,14 @@
     color: #003f87;
   }
 
+  .brand-link {
+    @apply inline-flex items-center gap-3 font-display text-sm font-extrabold text-primary sm:text-base;
+  }
+
+  .brand-icon {
+    @apply h-11 w-11 rounded-xl object-cover shadow-soft;
+  }
+
   .footer-heading {
     @apply font-display text-sm font-bold uppercase tracking-[0.16em] text-[#ffdcc3];
   }
@@ -237,9 +245,23 @@
     color: #ffdcc3;
   }
 
+  .hero-trust-strip {
+    @apply flex max-w-2xl flex-wrap gap-3 text-xs font-bold uppercase tracking-[0.12em] text-white/90;
+  }
+
+  .hero-trust-strip span {
+    @apply rounded-full px-3 py-2 backdrop-blur-sm;
+    background: rgba(255, 255, 255, 0.11);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
   .hero-panel {
     @apply max-w-md justify-self-end rounded-[2rem] p-8 shadow-soft backdrop-blur-md;
     background-color: rgba(255, 255, 255, 0.94);
+  }
+
+  .hero-panel-icon {
+    @apply h-20 w-20 rounded-2xl object-cover shadow-soft;
   }
 
   .hero-stat {

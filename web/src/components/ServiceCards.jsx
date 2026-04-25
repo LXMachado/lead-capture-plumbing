@@ -35,7 +35,7 @@ export default function ServiceCards({ limit }) {
           </div>
 
           <Link to="/contact" className={`service-link ${service.accent === 'dark' ? 'service-link-dark' : ''}`}>
-            Request this service
+            {service.cta || 'Request this service'}
           </Link>
         </article>
       ))}

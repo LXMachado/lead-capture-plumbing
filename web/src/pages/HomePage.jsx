@@ -15,9 +15,9 @@ export default function HomePage() {
         <div className="site-shell space-y-10">
           <div className="section-intro">
             <p className="eyebrow">Our Services</p>
-            <h2 className="section-title">Complete plumbing solutions for Gold Coast & Brisbane homes.</h2>
+            <h2 className="section-title">Complete Plumbing Services for Gold Coast Homes.</h2>
             <p className="section-copy">
-              From emergency repairs to preventative maintenance, our licensed team delivers fast, reliable service across South East Queensland.
+              From urgent repairs to upgrades and preventative maintenance, we keep your plumbing running properly.
             </p>
           </div>
           <ServiceCards />
@@ -43,10 +43,10 @@ export default function HomePage() {
 
           <div className="space-y-10">
           <div className="space-y-4">
-            <p className="eyebrow">Why homeowners choose us</p>
-            <h2 className="section-title">Reliable plumbing you can trust.</h2>
+            <p className="eyebrow">Why Locals Choose Us</p>
+            <h2 className="section-title">Reliable Plumbing Without the Runaround.</h2>
             <p className="section-copy">
-              We combine precision engineering with local knowledge to protect your property and keep your plumbing running smoothly.
+              We show up on time, communicate clearly, and complete quality work that lasts.
             </p>
           </div>
 
@@ -72,19 +72,19 @@ export default function HomePage() {
           <div className="space-y-6 text-white">
             <p className="eyebrow text-tertiary-fixed">Need a plumber now?</p>
             <h2 className="font-display text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">
-              Get a fast callback within the hour.
+              Get a Fast Callback Within the Hour.
             </h2>
             <p className="max-w-2xl text-base leading-8 text-white/90">
-              Tell us about your plumbing issue and we&apos;ll connect you with a licensed plumber fast. Priority jobs call directly for immediate assistance.
+              Tell us what&apos;s happening and we&apos;ll contact you quickly to organise the next step.
             </p>
             <div className="flex flex-wrap gap-6 text-sm font-semibold uppercase tracking-[0.12em] text-tertiary-fixed">
-              <span>24/7 available</span>
+              <span>Same-day available</span>
               <span>{business.emergencyResponse}</span>
               <span>Licensed & insured</span>
             </div>
           </div>
 
-          <LeadForm compact title="Quick Callback" subtitle="Priority jobs should still call directly, but this form captures qualified leads cleanly." />
+          <LeadForm compact title="Quick Callback" subtitle="Tell us what is happening and we will contact you quickly to organise the next step." />
         </div>
       </section>
 
@@ -92,9 +92,10 @@ export default function HomePage() {
         <div className="site-shell space-y-8">
           <div className="section-intro">
             <p className="eyebrow">Service Areas</p>
-            <h2 className="section-title">Proudly serving South East Queensland.</h2>
+            <h2 className="section-title">Proudly Servicing Gold Coast Homes.</h2>
+            <p className="section-copy">Based near Mermaid Beach and servicing surrounding suburbs daily.</p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {coverageAreas.map((area) => (
               <div key={area} className="area-pill">
                 {area}
